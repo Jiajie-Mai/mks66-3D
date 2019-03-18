@@ -14,12 +14,12 @@ def add_box( points, x, y, z, width, height, depth ):
     add_edge( points, x + width, y - height, z + depth, x + width, y, z + depth )
     add_edge( points, x + width, y - height, z + depth, x, y - height, z + depth )
     add_edge( points, x + width, y - height, z + depth, x + width, y - height, z )
-    add_edge( points, , , , , , )
-    add_edge( points, , , , , , )
-    add_edge( points, , , , , , )
-    add_edge( points, , , , , , )
-    add_edge( points, , , , , , )
-    add_edge( points, , , , , , )
+    add_edge( points, x, y, z + depth, x + width, y, z + depth )
+    add_edge( points, x, y, z + depth, x, y - height, z + depth)
+    add_edge( points, x, y - height, z, x, y - height, z + depth)
+    add_edge( points, x, y - height, z, x + width, y - height, z)
+    add_edge( points, x + depth, y, z, x + depth, y, z + depth)
+    add_edge( points, x + depth, y, z, x + depth, y - height, z)
 
   # ====================
   # Generates all the points along the surface
@@ -37,7 +37,7 @@ def generate_sphere( points, cx, cy, cz, r, step ):
   # necessary points
   # ====================
 def add_sphere( points, cx, cy, cz, r, step ):
-    pass
+    generate_sphere( points, cx, cy, cz, r, step )
 
 
   # ====================
@@ -56,7 +56,8 @@ def generate_torus( points, cx, cy, cz, r0, r1, step ):
   # necessary points
   # ====================
 def add_torus( points, cx, cy, cz, r0, r1, step ):
-    pass
+    generate_torus( points, cx, cy, cz, r0, r1, step )
+
 
 
 

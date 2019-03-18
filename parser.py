@@ -119,7 +119,7 @@ def parse_file( fname, edges, transform, screen, color ):
             pass
 
         elif line == 'box':
-            pass
+            add_box(edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]), float(args[4]), float(args[5]))
 
         elif line == 'apply':
             matrix_mult( transform, edges )
