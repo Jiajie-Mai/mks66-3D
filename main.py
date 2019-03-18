@@ -9,6 +9,9 @@ color = [ 0, 255, 0 ]
 edges = []
 transform = new_matrix()
 
+add_box( edges, 250, 250, 0, 100, 200, 100 )
+print_matrix( edges )
+
 # print_matrix( make_translate(3, 4, 5) )
 # print
 # print_matrix( make_scale(3, 4, 5) )
