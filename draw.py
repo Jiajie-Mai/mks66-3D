@@ -28,20 +28,22 @@ def add_box( points, x, y, z, width, height, depth ):
   # Returns a matrix of those points
   # ====================
 def generate_sphere( points, cx, cy, cz, r, step ):
+    output = []
+    step = 2 * math.pi/step
     theta, phi = 0
     while ( phi <= 2 * math.pi ):
         while ( theta <= 2 * math.pi ):
             x = r * math.cos(theta) + cx
             y = r * math.sin(theta) * math.cos(phi) + cy
             z = r * math.sin(theta) * math.sin(phi) + cz
-            points.append( [x,y,z,1] )
+            output.extend[x,y,z]
             theta += step
 
             ## Debugging
             print( "Added " + [x,y,z,1] + " to the helper matrix.")
 
         phi += step
-    return points
+    return output
 
   # ====================
   # adds all the points for a sphere with center
@@ -50,7 +52,10 @@ def generate_sphere( points, cx, cy, cz, r, step ):
   # necessary points
   # ====================
 def add_sphere( points, cx, cy, cz, r, step ):
-    pass
+    edgeList = generate_sphere( points, cx, cy, cz, r, step)
+    for x in range( 0, edgeList.length, 6 ):
+        add_edge( points, edgeList[x], edgeList[x + 1], edgeList[x + 2], edgeList[x + 3], edgeList[x + 4], edgeList[x + 5] )
+
 
 
   # ====================
@@ -60,20 +65,21 @@ def add_sphere( points, cx, cy, cz, r, step ):
   # Returns a matrix of those points
   # ====================
 def generate_torus( points, cx, cy, cz, r0, r1, step ):
+    step = 2 * math.pi/step
     theta, phi = 0
     while ( phi <= 2 * math.pi ):
         while ( theta <= 2 * math.pi ):
             x = math.cos(phi) * (r0 * math.cos(theta) + r1)
             y = r0 * math.sin(theta)
             z = -math.sin(phi) * (r0 * math.cos(theta) + r1)
-            points.append( [x,y,z,1] )
+            output.extend[x,y,z]
             theta += step
 
             ## Debugging
             print( "Added " + [x,y,z,1] + " to the helper matrix.")
 
         phi += step
-    return points
+    return output
 
   # ====================
   # adds all the points for a torus with center
@@ -82,7 +88,9 @@ def generate_torus( points, cx, cy, cz, r0, r1, step ):
   # necessary points
   # ====================
 def add_torus( points, cx, cy, cz, r0, r1, step ):
-    pass
+    edgeList = generate_torus( points, cx, cy, cz, r0, r1, step )
+    for x in range( 0, edgeList.length, 6 ):
+        add_edge( points, edgeList[x], edgeList[x + 1], edgeList[x + 2], edgeList[x + 3], edgeList[x + 4], edgeList[x + 5] )
 
 
 
