@@ -1,3 +1,4 @@
+
 from display import *
 from matrix import *
 from draw import *
@@ -8,15 +9,12 @@ The file follows the following format:
      Every command is a single character that takes up a line
      Any command that requires arguments must have those arguments in the second line.
      The commands are as follows:
-
          sphere: add a sphere to the edge matrix -
                  takes 4 arguemnts (cx, cy, cz, r)
          torus: add a torus to the edge matrix -
                 takes 5 arguemnts (cx, cy, cz, r1, r2)
          box: add a rectangular prism to the edge matrix -
               takes 6 arguemnts (x, y, z, width, height, depth)
-
-
 	 circle: add a circle to the edge matrix -
 	         takes 4 arguments (cx, cy, cz, r)
 	 hermite: add a hermite curve to the edge matrix -
@@ -44,10 +42,9 @@ The file follows the following format:
                save the screen to a file -
                takes 1 argument (file name)
          quit: end parsing
-
 See the file script for an example of the file format
 """
-ARG_COMMANDS = [ 'circle', 'bezier', 'hermite', 'line', 'scale', 'move', 'rotate', 'save' ]
+ARG_COMMANDS = [ 'circle', 'bezier', 'hermite', 'line', 'scale', 'move', 'rotate', 'save', 'box', 'sphere', 'torus' ]
 
 def parse_file( fname, edges, transform, screen, color ):
 
@@ -64,8 +61,21 @@ def parse_file( fname, edges, transform, screen, color ):
         if line in ARG_COMMANDS:
             c+= 1
             args = lines[c].strip().split(' ')
+        'box', 'sphere', 'torus'
 
-        if line == 'circle':
+        if line == 'box':
+            add_box(edges, float(args[0]), float(args[1]), float(args[2]),
+                           float(args[3]), float(args[4]), float(args[5]))
+
+        elif line == 'sphere':
+            add_sphere(edges, float(args[0]), float(args[1]), float(args[2]),
+                              float(args[3]), 1)
+
+        elif line == 'torus':
+            add_torus(edges, float(args[0]), float(args[1]), float(args[2]),
+                             float(args[3]), float(args[4]), 1)
+
+        elif line == 'circle':
             #print 'CIRCLE\t' + str(args)
             add_circle(edges,
                        float(args[0]), float(args[1]), float(args[2]),
@@ -111,15 +121,6 @@ def parse_file( fname, edges, transform, screen, color ):
 
         elif line == 'ident':
             ident(transform)
-
-        elif line == 'sphere':
-            add_sphere(edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]))
-
-        elif line == 'torus':
-            add_torus(edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]), float(args[4]))
-
-        elif line == 'box':
-            add_box(edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]), float(args[4]), float(args[5]))
 
         elif line == 'apply':
             matrix_mult( transform, edges )
